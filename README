@@ -1,0 +1,7 @@
+addtool: Do an interactive 'git add' using your preferred editor.
+
+Usage: 'addtool <files...>' or omit files to add all local changes.
+
+Based on Stuart Berg's add-with-mergetool, but tweaked the way I like it where
+you push changes "rightwards" to add them to the commit.
+
