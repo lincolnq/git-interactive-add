@@ -6,16 +6,18 @@
 # This little script is like 'git add --patch', except that 
 # it launches a merge-tool to perform the merge.
 
-# TODO: For now, this script hard-codes MERGETOOL and MERGECMD for kdiff3.
-#       Modify those variables for your own tool if you wish.
-#       In the future, it would be nice if we could somehow read  
-#       MERGETOOL and MERGECMD from the user's git-config.
-
 # Configure for kdiff3
 # (and hide warnings on about modalSession, from kdiff3 on OSX)
-MERGETOOL=${MERGETOOL-kdiff3}
-MERGECMD=${MERGECMD-'"${MERGETOOL}" "${LOCAL}" "${REMOTE}" -o "${MERGED}"'\
-                    2>&1 | grep -iv modalSession}
+#MERGETOOL=${MERGETOOL-kdiff3}
+#MERGECMD=${MERGECMD-'"${MERGETOOL}" "${LOCAL}" "${REMOTE}" -o "${MERGED}"' 2>&1 | grep -iv modalSession}
+
+# Configure for bcomp - index on the right
+MERGETOOL='/usr/local/bin/bcomp'
+MERGECMD='$MERGETOOL "${LOCAL}" "${REMOTE}" "-savetarget=${MERGED}"'
+
+# Configure using your standard mergetool (note - standard mergetool expects 4 args and we only have 3...)
+#MERGETOOL=$(git config --get merge.tool)
+#MERGECMD=$(git config --get mergetool.$MERGETOOL.cmd)
 
 main() {
     check_for_errors "$@"
