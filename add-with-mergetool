@@ -13,7 +13,7 @@
 
 # Configure for bcomp - index on the right
 MERGETOOL='/usr/local/bin/bcomp'
-MERGECMD='$MERGETOOL "${LOCAL}" "${REMOTE}" "-savetarget=${MERGED}"'
+MERGECMD='$MERGETOOL "${MINE}" "${INDEX}" "-savetarget=${MERGED}"'
 
 # Configure using your standard mergetool (note - standard mergetool expects 4 args and we only have 3...)
 #MERGETOOL=$(git config --get merge.tool)
@@ -86,8 +86,8 @@ patch_file_and_add() {
 
         # Execute 2-file merge
         echo "Launching ${MERGETOOL} for '$f'."
-        LOCAL="$f.from_index"
-        REMOTE="$f"
+        INDEX="$f.from_index"
+        MINE="$f"
         MERGED="$f.to_add"
         eval "${MERGECMD}"
         
